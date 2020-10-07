@@ -38,8 +38,10 @@ public class ListenerService extends Service implements ArduinoListener {
     public void onDestroy() {
         super.onDestroy();
         Toast.makeText(this, "Service destroyed by user.", Toast.LENGTH_SHORT).show();
-        arduino.unsetArduinoListener();
-        arduino.close();
+        if (arduino != null) {
+            arduino.unsetArduinoListener();
+            arduino.close();
+        }
     }
 
     @Override

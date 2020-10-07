@@ -40,7 +40,12 @@ public class BluetoothConnectionService extends Service {
     // SPP UUID service - this should work for most devices
     private static final UUID BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     // String for MAC address
+
+    // original in case
     private static final String MAC_ADDRESS = "98:D3:31:F6:1C:B0";
+    // second attemot private static final String MAC_ADDRESS = "98:D3:91:FD:5C:94";
+    // private static final String MAC_ADDRESS = "98:D3:51:F5:E6:A9";
+    // fourth private static final String MAC_ADDRESS = "98:D3:41:F5:ED:23";
 
     private StringBuilder recDataString = new StringBuilder();
 

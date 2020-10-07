@@ -1,10 +1,14 @@
 package com.aspegrenide.klick;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String LOG_TAG = "KLICK Main";
         /*
          Very tricky, BOOT_COMPLETE triggar inte, visar sig att den är blockad
          W/BroadcastQueue: Reject to launch app com.aspegrenide.klick/10100 for broadcast: App Op 69
@@ -56,11 +61,14 @@ public class MainActivity extends AppCompatActivity {
     Intent mServiceIntent;
     private BluetoothConnectionService mBluetoothConnectionService;
 
+    private AlarmManager alarmMgr;
+    private PendingIntent alarmIntent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d(LOG_TAG, "INIT");
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         cardsRecyclerViewAdapter = new CardsRecyclerViewAdapter(this, cardDetailsList);
@@ -78,7 +86,16 @@ public class MainActivity extends AppCompatActivity {
         startListener();
 
         // start bluetooth here, it should be started by broadcastreception
-        startService(new Intent(this, BluetoothConnectionService.class));
+        // startService(new Intent(this, BluetoothConnectionService.class));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(new Intent(this, BluetoothConnectionService.class));
+            startForegroundService(new Intent(this, DataHandlerService.class));
+        } else {
+            startService(new Intent(this, BluetoothConnectionService.class));
+            startService(new Intent(this, DataHandlerService.class));
+        }
+
 
         mBluetoothConnectionService = new BluetoothConnectionService();
         mServiceIntent = new Intent(this, mBluetoothConnectionService.getClass());
@@ -136,8 +153,21 @@ public class MainActivity extends AppCompatActivity {
         //  get the text
         Button btn = (Button) findViewById(view.getId());
         String cardUid = btn.getText().toString();
-
+        //goHome();
         callAppstarter(cardUid);
+    }
+
+
+    public void goHome() {
+        Log.d(LOG_TAG, "Go home ");
+
+        alarmMgr = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, i, 0);
+
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() +
+                        4 * 1000, alarmIntent);
     }
 
     private void callAppstarter(String cardUid) {
