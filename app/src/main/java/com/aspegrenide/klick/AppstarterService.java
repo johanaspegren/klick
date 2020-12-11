@@ -50,6 +50,8 @@ public class AppstarterService extends IntentService {
         }
         // not recognized, call main activity and register the card
         Intent registerCard = new Intent(this, MainActivity.class);
+        registerCard.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
         registerCard.putExtra("REGISTER", cardUid);
         startActivity(registerCard);
         return null;
@@ -99,6 +101,7 @@ public class AppstarterService extends IntentService {
         } else {
             myIntent = new Intent(Intent.ACTION_VIEW);
         }
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         if (cd.getPkg() != null) {
             //special
