@@ -1,33 +1,14 @@
 package com.aspegrenide.klick;
 
-import android.app.AlarmManager;
 import android.app.IntentService;
-import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import static android.accessibilityservice.AccessibilityService.GLOBAL_ACTION_BACK;
-import static androidx.core.view.KeyEventDispatcher.dispatchKeyEvent;
 
 
 public class AppstarterService extends IntentService {
@@ -49,10 +30,10 @@ public class AppstarterService extends IntentService {
             }
         }
         // not recognized, call main activity and register the card
-        Intent registerCard = new Intent(this, MainActivity.class);
+        Intent registerCard = new Intent(this, RegisterCardActivity.class);
         registerCard.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        registerCard.putExtra("REGISTER", cardUid);
+        registerCard.putExtra(MainActivity.CARDNOTFOUND, cardUid);
         startActivity(registerCard);
         return null;
     }
@@ -67,6 +48,7 @@ public class AppstarterService extends IntentService {
             startApp(cd);
         }else {
             Log.d(LOG_TAG, "NO MATCH on cardUid: " + cardUid);
+            // need to tell mainactivity
         }
     }
 

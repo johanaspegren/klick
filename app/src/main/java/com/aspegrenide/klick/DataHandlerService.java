@@ -25,6 +25,7 @@ public class DataHandlerService extends Service {
 
     private static final String LOG_TAG = "KLICK DataHandlerServ";
     private static ArrayList<CardDetails> cardDetailsList = new ArrayList<CardDetails>();
+    DatabaseReference mDatabase;
 
 
     public DataHandlerService() {
@@ -94,6 +95,5 @@ public class DataHandlerService extends Service {
             }
 
         });
-
     }
 }

@@ -5,31 +5,39 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/gc"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/gc"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
             android:name=".DataHandlerService"
             android:enabled="true"
             android:exported="true"></service>
+        <service
+            android:name=".AppstarterService"
+            android:exported="false" />
 
-        <receiver
-            android:name=".Restarter"
-            android:enabled="true"
-            android:exported="true">
+        <activity android:name=".RegisterCardActivity"/>
+
+        <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="restartservice" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </receiver>
+        </activity>
+
         <receiver
             android:name=".Autostart"
             android:enabled="true"
@@ -39,38 +47,6 @@
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".DataHandlerService"
-            android:enabled="true"
-            android:exported="true"></service>
-        <service
-            android:name=".ListenerService"
-            android:enabled="true"
-            android:exported="true"></service>
-        <service
-            android:name=".BluetoothConnectionService"
-            android:enabled="true"
-            android:exported="true"></service>
-        <service
-            android:name=".AppstarterService"
-            android:exported="false" />
-
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED"
-                android:resource="@xml/device_filter" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!--category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.HOME" /-->
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

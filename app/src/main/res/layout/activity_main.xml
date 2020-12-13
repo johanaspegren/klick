@@ -8,6 +8,35 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="315dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="32dp"
+        android:text="Se till att tillstånd fr Bluetoot och plats är på. Kolla också under Inställningar/appar/Särskilda inställningar/Visas överst"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:onClick="btnScanOnClick"
+        android:text="Fixa"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="181dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="140dp"
+        android:text='Om det inte verkar funka, koppla ur och i sladden till Klick tryck på "Fixa" och vänta ett ar sekunder '
+        app:layout_constraintStart_toStartOf="@+id/etNameOfCard"
+        app:layout_constraintTop_toBottomOf="@+id/etNameOfCard" />
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,19 +48,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.082" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvLabelState"
@@ -89,13 +105,12 @@
         app:layout_constraintStart_toStartOf="@+id/tvUnregisteredCardId"
         app:layout_constraintTop_toBottomOf="@+id/tvUnregisteredCardId" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/tvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Register"
-        android:onClick="btnRegister"
+        android:layout_marginTop="80dp"
+        android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/etNameOfCard"
         app:layout_constraintTop_toBottomOf="@+id/etNameOfCard" />
 

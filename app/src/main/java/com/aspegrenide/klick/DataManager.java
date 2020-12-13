@@ -5,19 +5,14 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-
 
 public class DataManager {
 
     DatabaseReference mDatabase;
 
-    public void writeCardDetailsListToFirebase(ArrayList<CardDetails> cardDetailsList, String dataBaseSet) {
+    public void writeCardDetailsToFirebase(CardDetails cardDetails, String dataBaseSet) {
+        Log.d("DM", "write to database " + cardDetails.toString());
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        for (CardDetails c : cardDetailsList) {
-            mDatabase.child(dataBaseSet).child(c.getCardId()).setValue(c);
-
-        }
+        mDatabase.child(dataBaseSet).child(cardDetails.getCardId()).setValue(cardDetails);
     }
 }

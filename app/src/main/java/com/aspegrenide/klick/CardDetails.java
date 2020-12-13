@@ -32,6 +32,20 @@ public class CardDetails implements Serializable {
     private String data;
     private String imgUrl;
 
+    @Override
+    public String toString() {
+        return "CardDetails{" +
+                "cardId='" + cardId + '\'' +
+                ", name='" + name + '\'' +
+                ", uri='" + uri + '\'' +
+                ", pkg='" + pkg + '\'' +
+                ", cls='" + cls + '\'' +
+                ", action='" + action + '\'' +
+                ", data='" + data + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                '}';
+    }
+
     public String getName() {
         return name;
     }
