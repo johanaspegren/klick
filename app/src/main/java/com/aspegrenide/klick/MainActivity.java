@@ -14,11 +14,14 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -45,14 +48,18 @@ public class MainActivity extends AppCompatActivity {
     final UUID CHARACTERISTIC_UUID_ID = UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E");
     final UUID DESCRIPTOR_UUID_ID = UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"); //0x2902
 
-    TextView tvId;
+    TextView tvConnectionState;
+    TextView tvPlacePermission;
+    TextView tvOnTopPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_red);
 
-        tvId = (TextView) findViewById(R.id.tvId);
+        tvConnectionState = (TextView) findViewById(R.id.tvConnectionState);
+        tvPlacePermission = (TextView) findViewById(R.id.tvPlacePermission);
+        tvOnTopPermission = (TextView) findViewById(R.id.tvOnTopPermission);
 
         String failedCardId;
         Bundle extras = getIntent().getExtras();
@@ -64,17 +71,49 @@ public class MainActivity extends AppCompatActivity {
             startService(new Intent(this, DataHandlerService.class));
         }
 
-        // check permission
+        // check permission place
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            tvId.setText("YOU MUST GRANT PLACE PERMISSION ");
+            Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "Klick behöver behörighet till 'Plats'", Toast.LENGTH_LONG).show();
+            tvPlacePermission.setText("Klick behöver behörighet till 'Plats', klicka HÄR för att fixa");
+        }
+
+        // check permission OnTop
+        if (!Settings.canDrawOverlays(this)) {
+            Toast.makeText(this, "Klick behöver behörighet att 'Visas Överst'", Toast.LENGTH_LONG).show();
+            tvOnTopPermission.setText("Klick behöver behörighet att 'Visas Överst', klicka HÄR för att fixa");
         }
         // Bluetooth
         bluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         bluetoothAdapter = bluetoothManager.getAdapter();
         startScan();
     }
+
+    public void onClickOnTopPermission(View view) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:" + getPackageName()));
+        startActivityForResult(intent, 0);
+    }
+
+    public void onClickPlacePermission(View view) {
+        final Intent i = new Intent();
+        i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        i.addCategory(Intent.CATEGORY_DEFAULT);
+        i.setData(Uri.parse("package:" + this.getPackageName()));
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        this.startActivity(i);
+    }
+
+    public void onClickConfigureBtn(View view) {
+    }
+    public void onClickContactBtn(View view) {
+    }
+    public void onClickAboutBtn(View view) {
+    }
+
 
     private CardDetails lookUpCardDetails(String cardUid) {
         ArrayList<CardDetails> cardDetailsList = DataHandlerService.getCards();
@@ -96,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
         CardDetails cd = lookUpCardDetails(cardUid);
         if (cd == null) {
             Log.d(TAG, "NO MATCH on cardUid: " + cardUid);
-            tvId.setText("Failed " + cardUid);
+            Toast.makeText(this, "Kände inte igen kortet" + cardUid, Toast.LENGTH_SHORT).show();
             // need to bring me to the front
 //            this.finish();
         }
@@ -137,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             //Log.i(TAG, "onScanResult");
             if (result.getDevice().getName() != null){
                 if (result.getDevice().getName().equals("Klick")) {
-                    tvId.setText("KLICK IS CONNECTED !");
+                    tvConnectionState.setText("Klick är kopplad");
                     Log.i(TAG, "KLICK CONNECTED");
                     // When find your device, connect.
                     connectDevice(result.getDevice());
@@ -219,7 +258,6 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    tvId.setText(cardUid);
                     String useMe = "";
                     if (cardUid.contains("{") && cardUid.contains("}")) {
                         // go

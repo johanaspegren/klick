@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvLabelReader"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e3000f"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tvKlick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="KLICK"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="GÖR SÅ HÄR!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/btnMer"
+        app:layout_constraintTop_toBottomOf="@+id/btnFel" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text='1) Välj ett kort. t ex SVT \n2) Lägg kortet på "startplattan"\n3) Vänta ett par sekunder \n4) Nu ska SVT starta \n5) Ställ tillbaka kortet\n6) Välj vad du vill se i SVT :-) '
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="223dp"
+        android:layout_height="176dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/trekorticon" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="179dp"
+        android:layout_height="173dp"
+        android:layout_marginEnd="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView9"
+        app:srcCompat="@drawable/hbgvit" />
+
+    <Button
+        android:id="@+id/btnMer"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="56dp"
+        android:backgroundTint="#5BA1D8"
+        android:text="Hur ställer jag in Klick"
+        android:onClick="onClickConfigureBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnFel" />
+
+    <Button
+        android:id="@+id/btnKontakt"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="56dp"
+        android:text="Kontakta oss"
+        android:onClick="onClickContactBtn"
+        android:backgroundTint="#5BA1D8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnFel" />
+
+    <Button
+        android:id="@+id/btnFel"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#5BA1D8"
+        android:text="Mer om Klick"
+        android:onClick="onClickAboutBtn"
+        app:layout_constraintEnd_toStartOf="@+id/btnKontakt"
+        app:layout_constraintStart_toEndOf="@+id/btnMer"
+        app:layout_constraintTop_toBottomOf="@+id/tvKlick" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="STATUS:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/tvConnectionState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Väntar på Klick ..."
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/tvPlacePermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="onClickPlacePermission"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvConnectionState"
+        app:layout_constraintTop_toBottomOf="@+id/tvConnectionState" />
+
+    <TextView
+        android:id="@+id/tvOnTopPermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:onClick="onClickOnTopPermission"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tvPlacePermission"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlacePermission" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
