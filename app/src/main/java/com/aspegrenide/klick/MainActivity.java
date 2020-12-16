@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
     private void connectDevice(BluetoothDevice device) {
         if (device == null) Log.i(TAG,"Device is null");
         GattClientCallback gattClientCallback = new GattClientCallback();
-        gattClient = device.connectGatt(this,false,gattClientCallback);
+        // set autoconnect to true, in case Klick resets
+        gattClient = device.connectGatt(this,true,gattClientCallback);
     }
 
 
