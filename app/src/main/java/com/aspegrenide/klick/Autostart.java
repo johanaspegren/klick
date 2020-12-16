@@ -20,8 +20,13 @@ public class Autostart extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.i(LOG_TAG, "device rebooted");
-        Intent startMe = new Intent(context, MainActivity.class);
-        context.startActivity(startMe);
+        if (intent != null) {
+            if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)) {
+                Log.i(LOG_TAG, "device rebooted");
+                Intent startMe = new Intent(context, MainActivity.class);
+                startMe.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(startMe);
+            }
+        }
     }
 }
