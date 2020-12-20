@@ -8,6 +8,7 @@
     android:background="#e3000f"
     tools:context=".MainActivity">
 
+
     <TextView
         android:id="@+id/tvKlick"
         android:layout_width="wrap_content"
@@ -25,13 +26,13 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="GÖR SÅ HÄR!"
+        android:layout_marginTop="86dp"
+        android:text="GÖR SÅ HÄR:"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/btnMer"
-        app:layout_constraintTop_toBottomOf="@+id/btnFel" />
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/tvKlick" />
 
     <TextView
         android:id="@+id/textView7"
@@ -56,58 +57,58 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="179dp"
-        android:layout_height="173dp"
+        android:layout_width="144dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="56dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView9"
+        app:layout_constraintTop_toTopOf="@+id/tvKlick"
         app:srcCompat="@drawable/hbgvit" />
 
     <Button
         android:id="@+id/btnMer"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginStart="56dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#5BA1D8"
-        android:text="Hur ställer jag in Klick"
         android:onClick="onClickConfigureBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnFel" />
+        android:text="Hur ställer jag in Klick"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlacePermission" />
 
     <Button
         android:id="@+id/btnKontakt"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="56dp"
-        android:text="Kontakta oss"
-        android:onClick="onClickContactBtn"
+        android:layout_marginStart="25dp"
         android:backgroundTint="#5BA1D8"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:onClick="onClickContactBtn"
+        android:text="Kontakta oss"
+        app:layout_constraintStart_toEndOf="@+id/btnFel"
         app:layout_constraintTop_toTopOf="@+id/btnFel" />
 
     <Button
         android:id="@+id/btnFel"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginStart="18dp"
         android:backgroundTint="#5BA1D8"
-        android:text="Mer om Klick"
         android:onClick="onClickAboutBtn"
-        app:layout_constraintEnd_toStartOf="@+id/btnKontakt"
+        android:text="Mer om Klick"
         app:layout_constraintStart_toEndOf="@+id/btnMer"
-        app:layout_constraintTop_toBottomOf="@+id/tvKlick" />
+        app:layout_constraintTop_toTopOf="@+id/btnMer" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginStart="64dp"
         android:text="STATUS:"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/tvConnectionState"
@@ -119,7 +120,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <TextView
@@ -149,7 +150,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tvPlacePermission"
         app:layout_constraintTop_toBottomOf="@+id/tvPlacePermission" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

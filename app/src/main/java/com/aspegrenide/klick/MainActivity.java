@@ -34,14 +34,18 @@ public class MainActivity extends AppCompatActivity {
     public static final String CARDNOTFOUND = "CARDNOTFOUND";
     public static final String CARD_DETAILS = "carddetails";
     private static final String TAG = "MAIN BLE";
+    private static final String KLICK_CONNECTED = "KLICK_CONNECTED";
+
+    private boolean klickConnected = false;
+
     // Bluetooth's variables
     BluetoothAdapter bluetoothAdapter;
     BluetoothLeScanner bluetoothLeScanner;
     BluetoothManager bluetoothManager;
     BluetoothScanCallback bluetoothScanCallback;
     BluetoothGatt gattClient;
-
     BluetoothGattCharacteristic characteristicID; // To get Value
+
 
     // funkar, lyckas läsa BLEuart från Adafruit
     final UUID SERVICE_UUID = UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E");
@@ -63,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
 
         String failedCardId;
         Bundle extras = getIntent().getExtras();
+
+        // check if there is a saved state (for example orientation)
+        // Check whether we're recreating a previously destroyed instance
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            klickConnected = savedInstanceState.getBoolean(KLICK_CONNECTED);
+        } else {
+            // Probably initialize members with default values for a new instance
+            klickConnected = false;
+        }
+        updateScreen();
 
         // get datahandler
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -88,6 +103,19 @@ public class MainActivity extends AppCompatActivity {
         bluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         bluetoothAdapter = bluetoothManager.getAdapter();
         startScan();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(KLICK_CONNECTED, klickConnected);
+        // Always call the superclass so it can save the view hierarchy state
+        super.onSaveInstanceState(savedInstanceState);
+    }
+    private void updateScreen() {
+        tvConnectionState.setText("Väntar på Klick...");
+        if (klickConnected) {
+            tvConnectionState.setText("Kopplad till Klick");
+        }
     }
 
     public void onClickOnTopPermission(View view) {
@@ -174,14 +202,16 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            //Log.i(TAG, "onScanResult");
+            Log.i(TAG, "onScanResult, result = " + result);
+            Log.i(TAG, "gattClient,  = " + gattClient);
             if (result.getDevice().getName() != null){
                 if (result.getDevice().getName().equals("Klick")) {
-                    tvConnectionState.setText("Klick är kopplad");
                     Log.i(TAG, "KLICK CONNECTED");
                     // When find your device, connect.
                     connectDevice(result.getDevice());
                     bluetoothLeScanner.stopScan(bluetoothScanCallback); // stop scan
+                    klickConnected = true;
+                    updateScreen();
                 }
             }
         }
@@ -209,11 +239,15 @@ public class MainActivity extends AppCompatActivity {
                 return;
             } else if (status != BluetoothGatt.GATT_SUCCESS) {
                 Log.i(TAG, "onConnectionStateChange != GATT_SUCCESS");
+                klickConnected = false;
+                updateScreen();
                 return;
             }
 
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 Log.i(TAG, "onConnectionStateChange CONNECTED");
+                klickConnected = true;
+                updateScreen();
                 gatt.discoverServices();
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 Log.i(TAG, "onConnectionStateChange DISCONNECTED");
@@ -289,5 +323,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG,"onDescriptorWrite");
         }
     }
+
 
 }
