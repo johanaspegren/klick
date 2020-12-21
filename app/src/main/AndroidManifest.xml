@@ -29,6 +29,9 @@
 
         <activity android:name=".RegisterCardActivity"/>
 
+        <activity android:name=".SetupActivity"/>
+        <activity android:name=".ContactActivity"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

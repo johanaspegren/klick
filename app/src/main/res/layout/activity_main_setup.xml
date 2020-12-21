@@ -8,6 +8,16 @@
     android:background="#e3000f"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="179dp"
+        android:layout_height="173dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/hbgvit" />
+
     <TextView
         android:id="@+id/tvKlick"
         android:layout_width="wrap_content"
@@ -26,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
-        android:text="GÖR SÅ HÄR:"
+        android:text="STÄLL IN KLICK"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#ffffff"
         android:textStyle="bold"
@@ -35,13 +45,14 @@
 
     <TextView
         android:id="@+id/tvSetupInstructions"
-        android:layout_width="wrap_content"
+        android:layout_width="329dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text='1) Välj ett kort. \n2) Lägg kortet på "startplattan"\n3) Vänta ett par sekunder \n4) Nu ska appen starta \n5) Ställ tillbaka kortet'
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:text="Öppna appens inställningar och ge Klick två tillstånd.\n\nDet första tillståndet Klick behöver är 'Plats' och det är kopplat till Bluetooth.\n\nDet andra tillståndet är 'Visa överst' och behövs för att kunna starta appar från bakgrunden"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <ImageView
@@ -53,16 +64,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/trekorticon" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="179dp"
-        android:layout_height="173dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/hbgvit" />
 
     <Button
         android:id="@+id/btnMer"
@@ -98,58 +99,25 @@
         app:layout_constraintStart_toEndOf="@+id/btnMer"
         app:layout_constraintTop_toBottomOf="@+id/tvKlick" />
 
-    <TextView
-        android:id="@+id/textView9"
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="360dp"
+        android:layout_height="570dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:srcCompat="@drawable/setup" />
+
+    <Button
+        android:id="@+id/btnOpenSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="STATUS:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="#ffffff"
-        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:onClick="onClickOpenSettingsBtn"
+        android:text="Öppna inställningar"
         app:layout_constraintStart_toStartOf="@+id/tvSetupInstructions"
         app:layout_constraintTop_toBottomOf="@+id/tvSetupInstructions" />
-
-    <TextView
-        android:id="@+id/tvConnectionStatePort"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/tvSetupInstructions"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <TextView
-        android:id="@+id/tvPlacePermission"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="onClickPlacePermission"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvConnectionStatePort"
-        app:layout_constraintTop_toBottomOf="@+id/tvConnectionStatePort" />
-
-    <TextView
-        android:id="@+id/tvOnTopPermission"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="onClickOnTopPermission"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvPlacePermission"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlacePermission" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

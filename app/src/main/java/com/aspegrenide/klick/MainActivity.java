@@ -14,6 +14,7 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
     final UUID CHARACTERISTIC_UUID_ID = UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E");
     final UUID DESCRIPTOR_UUID_ID = UUID.fromString("00002902-0000-1000-8000-00805F9B34FB"); //0x2902
 
-    TextView tvConnectionState;
+    TextView tvConnectionStateLand;
+    TextView tvConnectionStatePort;
     TextView tvPlacePermission;
     TextView tvOnTopPermission;
 
@@ -61,12 +63,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_red);
 
-        tvConnectionState = (TextView) findViewById(R.id.tvConnectionState);
+        tvConnectionStateLand = (TextView) findViewById(R.id.tvConnectionStateLand);
+        tvConnectionStatePort = (TextView) findViewById(R.id.tvConnectionStatePort);
         tvPlacePermission = (TextView) findViewById(R.id.tvPlacePermission);
         tvOnTopPermission = (TextView) findViewById(R.id.tvOnTopPermission);
 
         String failedCardId;
         Bundle extras = getIntent().getExtras();
+
+        Intent intent = getIntent();
+        if (null != intent) { //Null Checking
+            klickConnected = intent.getBooleanExtra(KLICK_CONNECTED, false);
+        }
 
         // check if there is a saved state (for example orientation)
         // Check whether we're recreating a previously destroyed instance
@@ -87,17 +95,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // check permission place
-        if (ContextCompat.checkSelfPermission(this,
+        if ((ContextCompat.checkSelfPermission(this,
             Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "Klick behöver behörighet till 'Plats'", Toast.LENGTH_LONG).show();
-            tvPlacePermission.setText("Klick behöver behörighet till 'Plats', klicka HÄR för att fixa");
-        }
-
-        // check permission OnTop
-        if (!Settings.canDrawOverlays(this)) {
-            Toast.makeText(this, "Klick behöver behörighet att 'Visas Överst'", Toast.LENGTH_LONG).show();
-            tvOnTopPermission.setText("Klick behöver behörighet att 'Visas Överst', klicka HÄR för att fixa");
+            != PackageManager.PERMISSION_GRANTED) ||
+        (!Settings.canDrawOverlays(this))) {
+            tvPlacePermission.setText("Klick måste ställas in först!");
+            tvOnTopPermission.setText("Se mer under 'Hur ställer jag in...' ");
         }
         // Bluetooth
         bluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
@@ -112,9 +115,19 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
     }
     private void updateScreen() {
-        tvConnectionState.setText("Väntar på Klick...");
-        if (klickConnected) {
-            tvConnectionState.setText("Kopplad till Klick");
+        int display_mode = getResources().getConfiguration().orientation;
+        if (display_mode == Configuration.ORIENTATION_PORTRAIT) {
+            if (!klickConnected) {
+                tvConnectionStatePort.setText("Väntar på Klick...");
+            }else {
+                tvConnectionStatePort.setText("Kopplad till Klick");
+            }
+        } else {
+            if (!klickConnected) {
+                tvConnectionStateLand.setText("Väntar på Klick...");
+            }else {
+                tvConnectionStateLand.setText("Kopplad till Klick");
+            }
         }
     }
 
@@ -136,10 +149,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickConfigureBtn(View view) {
+        setContentView(R.layout.activity_main_setup);
+/*
+        Intent intent = new Intent(this, SetupActivity.class);
+        Bundle bdl = new Bundle();
+        bdl.putBoolean(KLICK_CONNECTED, klickConnected);
+        intent.putExtras(bdl);
+        startActivity(intent);
+
+ */
     }
+
     public void onClickContactBtn(View view) {
+        setContentView(R.layout.activity_main_contact);
+/*
+        Intent intent = new Intent(this, ContactActivity.class);
+        Bundle bdl = new Bundle();
+        bdl.putBoolean(KLICK_CONNECTED, klickConnected);
+        intent.putExtras(bdl);
+        startActivity(intent);
+
+ */
     }
+
     public void onClickAboutBtn(View view) {
+        setContentView(R.layout.activity_main_red);
+        Log.d(TAG, "state " + klickConnected);
+        updateScreen();
+/*
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bdl = new Bundle();
+        bdl.putBoolean(KLICK_CONNECTED, klickConnected);
+        intent.putExtras(bdl);
+        startActivity(intent);
+
+ */
     }
 
 
@@ -195,6 +239,12 @@ public class MainActivity extends AppCompatActivity {
         gattClient = device.connectGatt(this,true,gattClientCallback);
     }
 
+    public void onClickOpenSettingsBtn(View view) {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
+    }
 
 
     // BLE Scan Callbacks
@@ -202,8 +252,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onScanResult(int callbackType, ScanResult result) {
-            Log.i(TAG, "onScanResult, result = " + result);
-            Log.i(TAG, "gattClient,  = " + gattClient);
+//            Log.i(TAG, "onScanResult, result = " + result);
+//            Log.i(TAG, "gattClient,  = " + gattClient);
             if (result.getDevice().getName() != null){
                 if (result.getDevice().getName().equals("Klick")) {
                     Log.i(TAG, "KLICK CONNECTED");

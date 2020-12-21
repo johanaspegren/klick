@@ -8,7 +8,6 @@
     android:background="#e3000f"
     tools:context=".MainActivity">
 
-
     <TextView
         android:id="@+id/tvKlick"
         android:layout_width="wrap_content"
@@ -26,21 +25,21 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="86dp"
-        android:text="GÖR SÅ HÄR:"
+        android:layout_marginTop="70dp"
+        android:text="KONTAKTER"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/tvKlick" />
+        app:layout_constraintStart_toStartOf="@+id/btnMer"
+        app:layout_constraintTop_toBottomOf="@+id/btnFel" />
 
     <TextView
         android:id="@+id/tvSetupInstructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="705dp"
+        android:layout_height="84dp"
         android:layout_marginTop="16dp"
-        android:text='1) Välj ett kort. \n2) Lägg kortet på "startplattan"\n3) Vänta ett par sekunder \n4) Nu ska appen starta \n5) Ställ tillbaka kortet'
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:text="Vi är väldigt glada att du vill hjälpa oss att testa Klick. Precis som alla andra nya saker är inte Klick helt perfekt, och dina tankar och synpunkter är viktiga för oss."
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -55,100 +54,93 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/trekorticon" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="144dp"
-        android:layout_height="118dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="56dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvKlick"
-        app:srcCompat="@drawable/hbgvit" />
-
     <Button
         android:id="@+id/btnMer"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="56dp"
         android:backgroundTint="#5BA1D8"
-        android:onClick="onClickConfigureBtn"
         android:text="Hur ställer jag in Klick"
-        app:layout_constraintEnd_toStartOf="@+id/btnFel"
+        android:onClick="onClickConfigureBtn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnFel" />
 
     <Button
         android:id="@+id/btnKontakt"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="#5BA1D8"
-        android:onClick="onClickContactBtn"
+        android:layout_marginEnd="56dp"
         android:text="Kontakta oss"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:onClick="onClickContactBtn"
+        android:backgroundTint="#5BA1D8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnFel" />
 
     <Button
         android:id="@+id/btnFel"
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="56dp"
         android:backgroundTint="#5BA1D8"
         android:onClick="onClickAboutBtn"
         android:text="HEM"
         app:layout_constraintEnd_toStartOf="@+id/btnKontakt"
-        app:layout_constraintTop_toTopOf="@+id/btnKontakt" />
+        app:layout_constraintStart_toEndOf="@+id/btnMer"
+        app:layout_constraintTop_toBottomOf="@+id/tvKlick" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="STATUS:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:text="Johan.Mullern-Aspegren@helsingborg.se"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="073 650 9716"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="179dp"
+        android:layout_height="173dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/hbgvit" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Telefon:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#ffffff"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tvKlick"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/tvConnectionStateLand"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <TextView
-        android:id="@+id/tvPlacePermission"
+        android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:onClick="onClickPlacePermission"
+        android:layout_marginTop="32dp"
+        android:text="E-post"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#ffffff"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvConnectionStateLand"
-        app:layout_constraintTop_toBottomOf="@+id/tvConnectionStateLand" />
-
-    <TextView
-        android:id="@+id/tvOnTopPermission"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:onClick="onClickOnTopPermission"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvPlacePermission"
-        app:layout_constraintTop_toBottomOf="@+id/tvPlacePermission" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tvSetupInstructions"
+        app:layout_constraintTop_toBottomOf="@+id/tvSetupInstructions" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
