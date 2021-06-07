@@ -31,7 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity<personalNumber> extends AppCompatActivity {
     public static final String CARDNOTFOUND = "CARDNOTFOUND";
     public static final String CARD_DETAILS = "carddetails";
     private static final String TAG = "MAIN BLE";
@@ -46,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
     BluetoothScanCallback bluetoothScanCallback;
     BluetoothGatt gattClient;
     BluetoothGattCharacteristic characteristicID; // To get Value
+
+    private String personalNumber;
+    BrukarData bd = new BrukarData(personalNumber);
+    ArrayList<Insatser> insatser = bd.getInsatser();
+
 
 
     // funkar, lyckas läsa BLEuart från Adafruit
