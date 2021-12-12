@@ -1,10 +1,12 @@
 package com.aspegrenide.klick;
 
 import android.app.IntentService;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
 
@@ -113,6 +115,11 @@ public class AppstarterService extends IntentService {
         Log.d(LOG_TAG, "startApp: pkg    " + cd.getPkg());
 
         startActivity(myIntent);
+
+//        if(cd.getUri().indexOf("spotify") >= 0 ) {
+//            Log.d(LOG_TAG, "call playPlayMusic");
+//            playPlayMusic();
+//        }
     }
 
 
@@ -125,5 +132,19 @@ public class AppstarterService extends IntentService {
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    private void playPlayMusic() {
+        Log.d(LOG_TAG, "init playPlayMusic");
+        Intent i = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        i.setComponent(new ComponentName("com.spotify.music", "com.spotify.music.internal.receiver.MediaButtonReceiver"));
+        i.putExtra(Intent.EXTRA_KEY_EVENT,new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_MEDIA_PLAY));
+        sendOrderedBroadcast(i, null);
+
+        i = new Intent(Intent.ACTION_MEDIA_BUTTON);
+        i.setComponent(new ComponentName("com.spotify.music", "com.spotify.music.internal.receiver.MediaButtonReceiver"));
+        i.putExtra(Intent.EXTRA_KEY_EVENT,new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_MEDIA_PLAY));
+        sendOrderedBroadcast(i, null);
+        Log.d(LOG_TAG, "end playPlayMusic");
     }
 }

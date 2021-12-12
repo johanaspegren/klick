@@ -3,6 +3,17 @@ package com.aspegrenide.klick;
 import java.io.Serializable;
 
 public class CardDetails implements Serializable {
+// intent.data = Uri.parse("spotify:album:0sNOF9WDwhWunNAHPD3Baj:play")
+// https://open.spotify.com/playlist/1JAsQkkhLkHlesRxzHbmpc?si=608af91b39be4177
+    // funkar
+    // "spotify:track:1uBsu3PbD2909UBIfEMLvK:play"
+    // test spellista, funkar
+    // "spotify:playlist:1JAsQkkhLkHlesRxzHbmpc:play"
+
+    // Storytel link
+    // https://www.storytel.com/se/sv/books/shuggie-bain-558386?appRedirect=true
+    // cardId 4ce99017
+
 
     public CardDetails() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
